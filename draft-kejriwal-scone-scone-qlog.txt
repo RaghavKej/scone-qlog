@@ -2,8 +2,8 @@
 
 
 
-Standard Communication with Network Elements                  Y. N. Here
-Internet-Draft                                    Your Organization Here
+Standard Communication with Network Elements                 R. Kejriwal
+Internet-Draft                                    University of Aberdeen
 Intended status: Standards Track                         21 October 2026
 Expires: 24 April 2027
 
@@ -20,9 +20,9 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-kejriwal-scone-
-   scone-qlog/.
+   https://RaghavKej.github.io/scone-qlog/draft-kejriwal-scone-scone-
+   qlog.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-kejriwal-scone-scone-qlog/.
 
    Discussion of this document takes place on the Standard Communication
    with Network Elements Working Group mailing list
@@ -111,6 +111,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Raghav Kejriwal
+   University of Aberdeen
+   Email: raghavkejriwal@gmail.com
