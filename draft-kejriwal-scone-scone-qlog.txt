@@ -13,7 +13,8 @@ Expires: 24 April 2027
 
 Abstract
 
-   TODO Abstract
+   This document specifies a qlog logging format for sending and
+   receiving SCONE packets.
 
 About This Document
 
@@ -76,7 +77,14 @@ Table of Contents
 
 1.  Introduction
 
-   TODO Introduction
+   This document defines a way to provide logging for the SCONE protocol
+   ([SCONE]) using the qlog format ([QLOG-SCHEMA]).
+
+   ([SCONE]) describes a protocol where on-path network elements can
+   communicate their perspective on the maximum sustainable thorughput
+   for QUIC flows to endpoints.  This thorughput advice suggests an
+   upper bound on long-term average throughput, independent of and
+   complementary to real-time congestion control signals.
 
 2.  Conventions and Definitions
 
@@ -96,6 +104,25 @@ Table of Contents
 
 5.  Normative References
 
+   [CDDL]     Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
+
+   [INVARIANTS]
+              Thomson, M., "Version-Independent Properties of QUIC",
+              RFC 8999, DOI 10.17487/RFC8999, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc8999>.
+
+   [QLOG-SCHEMA]
+              Marx, R., Niccolini, L., Seemann, M., and L. Pardue,
+              "qlog: Structured Logging for Network Protocols", Work in
+              Progress, Internet-Draft, draft-ietf-quic-qlog-main-
+              schema-14, 6 July 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
+              qlog-main-schema-14>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -104,6 +131,13 @@ Table of Contents
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
+              Ihlar, "Standard Communication with Network Elements
+              (SCONE) Protocol", Work in Progress, Internet-Draft,
+              draft-ietf-scone-protocol-09, 24 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
+              protocol-09>.
 
 Acknowledgments
 
