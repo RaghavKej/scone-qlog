@@ -19,28 +19,25 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "QUIC Logging for the SCONE Protocol"
+abbrev: "scone-qlog"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-kejriwal-scone-scone-qlog-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "Web and Internet Transport"
+workgroup: "Standard Communication with Network Elements"
 keyword:
- - next generation
- - unicorn
- - AI-native
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
+  group: "Standard Communication with Network Elements"
+  type: "Working Group"
+  mail: "scone@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/scone"
+  github: "RaghavKej/scone-qlog"
   latest: https://example.com/LATEST
 
 author:
