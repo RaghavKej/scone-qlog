@@ -18,7 +18,7 @@ venue:
   mail: "scone@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/scone"
   github: "RaghavKej/scone-qlog"
-  latest: https://example.com/LATEST
+  latest: "https://RaghavKej.github.io/scone-qlog/draft-kejriwal-scone-scone-qlog.html"
 
 author:
  -
