@@ -23,7 +23,7 @@ venue:
 author:
  -
     fullname: "Raghav Kejriwal"
-    organization: Your Organization Here
+    organization: University of Aberdeen
     email: "raghavkejriwal@gmail.com"
 
 normative:
