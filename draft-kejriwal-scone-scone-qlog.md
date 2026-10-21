@@ -27,6 +27,10 @@ author:
     email: "raghavkejriwal@gmail.com"
 
 normative:
+  SCONE: I-D.ietf-scone-protocol
+  INVARIANTS: RFC8999
+  QLOG-SCHEMA: I-D.ietf-quic-qlog-main-schema
+  CDDL: RFC8610
 
 informative:
 
@@ -34,14 +38,16 @@ informative:
 
 --- abstract
 
-TODO Abstract
+This document specifies a qlog logging format for sending and receiving SCONE packets.
 
 
 --- middle
 
 # Introduction {#intro}
 
-TODO Introduction
+This document defines a way to provide logging for the SCONE protocol ({{SCONE}}) using the qlog format ({{QLOG-SCHEMA}}).
+
+({{SCONE}}) describes a protocol where on-path network elements can communicate their perspective on the maximum sustainable thorughput for QUIC flows to endpoints. This thorughput advice suggests an upper bound on long-term average throughput, independent of and complementary to real-time congestion control signals.
 
 
 # Conventions and Definitions
