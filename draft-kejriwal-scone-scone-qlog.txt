@@ -217,7 +217,8 @@ Table of Contents
    datagram that begins with a SCONE packet, after the packet (and any
    subsequent coalesced packets) have been parsed to check validity
    [SCONE].  The event records the rate signal carried in the received
-   SCONE packet and whether it was accepted or discarded.
+   SCONE packet and the outcome of processing it, regardless of whether
+   the packet is accepted or discarded.
 
    SCONEPacketReceived = {
      ? datagram_id: uint32
