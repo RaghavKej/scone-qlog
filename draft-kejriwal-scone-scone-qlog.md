@@ -136,7 +136,7 @@ SCONEPacketSent = {
 
 Importance: Core
 
-The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, after the packet (and any subsequent coalesced packets) have been parsed to check validity {{SCONE}}. The event records the rate signal carried in the received SCONE packet and whether it was accepted or discarded.
+The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, after the packet (and any subsequent coalesced packets) have been parsed to check validity {{SCONE}}. The event records the rate signal carried in the received SCONE packet and the outcome of processing it, regardless of whether the packet is accepted or discarded.
 
 ~~~cddl
 SCONEPacketReceived = {
