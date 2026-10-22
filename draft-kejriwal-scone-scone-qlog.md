@@ -24,6 +24,10 @@ author:
  -
     fullname: "Raghav Kejriwal"
     organization: University of Aberdeen
+    street: School of Engineering
+    street: Fraser Noble Building
+    city: Aberdeen, AB24 3UE
+    country: UK
     email: "ietf@raghavkejriwal.com"
 
 normative:
@@ -86,7 +90,7 @@ SCONEKnownRateSignal = 0..126
 This document describes how the SCONE protocol can be expressed in qlog using the event schema. Per the requirements in {{Section 8 of QLOG-SCHEMA}}, this document registers the `scone` namespace. The event schema URI is `urn:ietf:params:qlog:events:scone`.
 
 ## Draft Event Schema Identification
-{:removeinrfc="true"}
+RFC-Editor NOTE:: Please remove this section when this is published as an RFC.
 
 Only implementations of the final, published RFC can use the events belonging to the event schema with the URI `urn:ietf:params:qlog:events:scone`. Until such an RFC exists, implementations MUST NOT identify themselves using this URI.
 
@@ -111,7 +115,7 @@ $ProtocolEventData /= SCONEEventData
 
 Importance: Core
 
-The packet_sent event is emitted when an endpoint includes a SCONE packet in a datagram it sends.
+The packet_sent event is emitted when an endpoint includes a SCONE packet in a datagram it sends. The event records the rate signal in the sent SCONE packet.
 
 ~~~cddl
 SCONEPacketSent = {
@@ -132,7 +136,7 @@ SCONEPacketSent = {
 
 Importance: Core
 
-The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, after the packet (and any subsequent coalesced packets) have been parsed to check validity {{SCONE}}. The event is emitted regardless of whether the packet was accepted as a valid packet and regardless of the rate signal carried by the packet.
+The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, after the packet (and any subsequent coalesced packets) have been parsed to check validity {{SCONE}}. The event records the rate signal carried in the received SCONE packet and whether it was accepted or discarded.
 
 ~~~cddl
 SCONEPacketReceived = {
@@ -165,7 +169,7 @@ The `reason` field MAY be omitted if the value of `outcome` is "discarded", and 
 
 Importance: Base
 
-The advice_updated event is emitted when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}.
+The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}.
 
 ~~~cddl
 SCONEAdviceUpdated = {
@@ -185,13 +189,13 @@ This event may be emitted in the following common cases (non-exhaustive):
 - Processing a SCONE packet that lowers the effective throughput advice.
 - Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective.
 
-This event SHOULD NOT be emitted when advice from a previous monitoring period expires but the advice in the current monitoring period does not change the effective advice.
+This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice.
 
 ## scone:advice_expired {#expired}
 
 Importance: Base
 
-The advice_expired event is emitted when previously effective SCONE advice expires because no applicable throughput advice was received during the monitoring period, as defined in {{SCONE}}.
+The advice_expired event is emitted by a SCONE-receiving endpoint when previously effective SCONE advice expires because no applicable throughput advice was received during the monitoring period, as defined in {{SCONE}}.
 
 ~~~cddl
 SCONEAdviceExpired = {
@@ -231,4 +235,4 @@ Reference:
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors thank the European Space Agency (ESA) for supporting the QUICOPTSAT project, under which an evaluation of SCONE over satellite networks was undertaken.
