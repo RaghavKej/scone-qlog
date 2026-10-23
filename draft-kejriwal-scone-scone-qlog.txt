@@ -373,7 +373,7 @@ Authors' Addresses
 
    Godred Fairhurst
    University of Aberdeen
-   Frase Noble Building
+   Fraser Noble Building
    Aberdeen, AB24 3UE
    United Kingdom
    Email: gorry@erg.abdn.ac.uk
