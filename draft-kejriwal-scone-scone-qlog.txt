@@ -3,9 +3,9 @@
 
 
 Standard Communication with Network Elements                 R. Kejriwal
-Internet-Draft                                    University of Aberdeen
-Intended status: Standards Track                         22 October 2026
-Expires: 25 April 2027
+Internet-Draft                                              G. Fairhurst
+Intended status: Standards Track                  University of Aberdeen
+Expires: 26 April 2027                                   23 October 2026
 
 
                   QUIC Logging for the SCONE Protocol
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 April 2027.
+   This Internet-Draft will expire on 26 April 2027.
 
 Copyright Notice
 
@@ -82,7 +82,7 @@ Table of Contents
    7.  IANA Considerations
    8.  Normative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -361,7 +361,7 @@ Acknowledgments
    QUICOPTSAT project, under which an evaluation of SCONE over satellite
    networks was undertaken.
 
-Author's Address
+Authors' Addresses
 
    Raghav Kejriwal
    University of Aberdeen
@@ -369,3 +369,12 @@ Author's Address
    Aberdeen, AB24 3UE
    United Kingdom
    Email: ietf@raghavkejriwal.com
+
+
+   Godred Fairhurst
+   University of Aberdeen
+   Frase Noble Building
+   Aberdeen, AB24 3UE
+   United Kingdom
+   Email: gorry@erg.abdn.ac.uk
+   URI:   https://www.erg.abdn.ac.uk
