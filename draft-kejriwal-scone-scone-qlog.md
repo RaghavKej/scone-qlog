@@ -29,6 +29,15 @@ author:
     city: Aberdeen, AB24 3UE
     country: UK
     email: "ietf@raghavkejriwal.com"
+ -
+    fullname: "Godred Fairhurst"
+    organization: University of Aberdeen
+    street: School of Engineering
+    street: Frase Noble Building
+    city: Aberdeen, AB24 3UE
+    country: UK
+    email: "gorry@erg.abdn.ac.uk"
+    uri: https://www.erg.abdn.ac.uk
 
 normative:
   SCONE: I-D.ietf-scone-protocol
