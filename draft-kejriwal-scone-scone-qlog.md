@@ -33,7 +33,7 @@ author:
     fullname: "Godred Fairhurst"
     organization: University of Aberdeen
     street: School of Engineering
-    street: Frase Noble Building
+    street: Fraser Noble Building
     city: Aberdeen, AB24 3UE
     country: UK
     email: "gorry@erg.abdn.ac.uk"
