@@ -1,0 +1,380 @@
+
+
+
+
+Standard Communication with Network Elements                 R. Kejriwal
+Internet-Draft                                              G. Fairhurst
+Intended status: Standards Track                  University of Aberdeen
+Expires: 27 April 2027                                   24 October 2026
+
+
+                  QUIC Logging for the SCONE Protocol
+                 draft-kejriwal-scone-scone-qlog-latest
+
+Abstract
+
+   This document defines qlog events for the Standard Communication with
+   Network Elements (SCONE) protocol.  The events record the sending and
+   reception of SCONE packets and changes to throughput advice.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://RaghavKej.github.io/scone-qlog/draft-kejriwal-scone-scone-
+   qlog.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-kejriwal-scone-scone-qlog/.
+
+   Discussion of this document takes place on the Standard Communication
+   with Network Elements Working Group mailing list
+   (mailto:scone@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/scone.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/scone/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/RaghavKej/scone-qlog.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 27 April 2027.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  SCONE Rate Signal Data Type
+   4.  SCONE Event Schema Definition
+     4.1.  Draft Event Schema Identification
+   5.  SCONE Events
+     5.1.  scone:packet_sent
+     5.2.  scone:packet_received
+     5.3.  scone:advice_updated
+     5.4.  scone:advice_expired
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   [SCONE] describes a protocol where on-path network elements can
+   communicate their perspective on the maximum sustainable throughput
+   for QUIC flows to endpoints.  This throughput advice suggests an
+   upper bound on long-term average throughput, independent of and
+   complementary to real-time congestion control signals.
+
+   This document defines the qlog namespace and events that record the
+   sending and reception of SCONE packets and changes to throughput
+   advice, allowing for debugging of implementations and reconstruction
+   of the packets received.
+
+   The event namespace with the identifier scone is defined in
+   Section 4.
+
+   Table 1 summarises the qlog events described in this document.
+
+           +=======================+============+=============+
+           | Event Name            | Importance | Definition  |
+           +=======================+============+=============+
+           | scone:packet_sent     | Core       | Section 5.1 |
+           +-----------------------+------------+-------------+
+           | scone:packet_received | Core       | Section 5.2 |
+           +-----------------------+------------+-------------+
+           | scone:advice_updated  | Base       | Section 5.3 |
+           +-----------------------+------------+-------------+
+           | scone:advice_expired  | Base       | Section 5.4 |
+           +-----------------------+------------+-------------+
+
+                 Table 1: Overview of SCONE qlog events.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   The event and data structure definitions in this document are
+   expressed in the Concise Data Definition Language [CDDL] and its
+   extensions described in Section 1.2 of [QLOG-SCHEMA].
+
+   This document follows the language used in [SCONE]:
+
+   *  "Throughput advice" refers to the information communicated to
+      endpoints by network elements in the form of a 7-bit rate signal
+
+   *  A "monitoring period" is the time over which rate signals apply
+      (67 seconds [SCONE]).
+
+3.  SCONE Rate Signal Data Type
+
+   A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of
+   100,000 * 10^(n/20) bits per second [SCONE].  The value 127 carries
+   no throughput advice.
+
+   SCONERateSignal = 0..127
+   SCONEKnownRateSignal = 0..126
+
+           Figure 1: CDDL Description of SCONE Rate Signal types.
+
+4.  SCONE Event Schema Definition
+
+   This document describes how the SCONE protocol can be expressed in
+   qlog using the event schema.  Per the requirements in Section 8 of
+   [QLOG-SCHEMA], this document registers the scone namespace.  The
+   event schema URI is urn:ietf:params:qlog:events:scone.
+
+4.1.  Draft Event Schema Identification
+
+   RFC-Editor NOTE:: Please remove this section when this is published
+   as an RFC.
+
+   Only implementations of the final, published RFC can use the events
+   belonging to the event schema with the URI
+   urn:ietf:params:qlog:events:scone.  Until such an RFC exists,
+   implementations MUST NOT identify themselves using this URI.
+
+   Implementations of draft versions of the event schema MUST append the
+   string "-" and the corresponding draft number to the URI.  For
+   example, draft 00 of this document is identified using the URI
+   urn:ietf:params:qlog:events:scone-00.
+
+   The namespace identifier itself is not affected by this requirement.
+
+5.  SCONE Events
+
+   SCONE events extend the $ProtocolEventData extension point defined in
+   Section 8.2 of [QLOG-SCHEMA].  Additionally, they allow for direct
+   extensibility by their use of per-event extension points via the $$
+   CDDL "group socket" syntax, as also described in Section 8.2 of
+   [QLOG-SCHEMA].
+
+   SCONEEventData = SCONEPacketSent /
+                    SCONEPacketReceived /
+                    SCONEAdviceUpdated /
+                    SCONEAdviceExpired
+   $ProtocolEventData /= SCONEEventData
+
+    Figure 2: SCONEEventData definition and ProtocolEventData extension
+
+5.1.  scone:packet_sent
+
+   Importance: Core
+
+   The packet_sent event is emitted when an endpoint includes a SCONE
+   packet in a datagram it sends.  The event records the rate signal in
+   the sent SCONE packet.
+
+   SCONEPacketSent = {
+     ? datagram_id: uint32
+     version: uint32
+     rate_signal: SCONERateSignal
+     ; expected to be 127 when a packet is sent by an endpoint
+     ? trigger: "loss_detected"
+     ; indicates that the SCONE packet is being sent again
+     ; because a coalesced QUIC packet was detected to be lost
+
+     * $$scone-packetsent-extension
+   }
+
+          Figure 3: CDDL Description of the SCONEPacketSent Data.
+
+5.2.  scone:packet_received
+
+   Importance: Core
+
+   The packet_received event is emitted when an endpoint receives a
+   datagram that begins with a SCONE packet, after the packet (and any
+   subsequent coalesced packets) have been parsed to check validity
+   [SCONE].  The event records the rate signal carried in the received
+   SCONE packet and the outcome of processing it, regardless of whether
+   the packet is accepted or discarded.
+
+   SCONEPacketReceived = {
+     ? datagram_id: uint32
+     version: uint32
+     rate_signal: SCONERateSignal
+     ? throughput_advice: uint64
+     ; bits per second encoded by the rate_signal
+     ; absent when rate_signal is 127
+     outcome: "accepted" / "discarded"
+     ; accepted implies the packet was valid and contained a
+     ; SCONEKnownRateSignal regardless of whether the advice was applied
+     ? reason: "coalesced_packet_not_processed" /
+               ; no coalesced packets were successfully processed
+               "destination_connection_id_mismatch" /
+               "source_connection_id_mismatch" /
+               "multiple_scone_packets_received" /
+               ; multiple scone packets were received in one datagram
+               "unknown_rate_signal"
+               ; rate signal was 127
+
+     * $$scone-packetreceived-extension
+   }
+
+        Figure 4: CDDL Description of the SCONEPacketReceived Data.
+
+   The reason field MAY be omitted if the value of outcome is
+   "discarded", and MUST NOT be present if the value of outcome is
+   "accepted".
+
+5.3.  scone:advice_updated
+
+   Importance: Base
+
+   The advice_updated event is emitted by a SCONE-receiving endpoint
+   when the effective throughput advice changes as a result of
+   processing a received SCONE packet or applying the monitoring-period
+   rules defined in [SCONE].
+
+   SCONEAdviceUpdated = {
+     rate_signal: SCONEKnownRateSignal
+     ; Rate signal corresponding to the effective advice
+     throughput_advice: uint64
+     ; Effective throughput advice in bits per second
+
+     * $$scone-adviceupdated-extension
+   }
+
+         Figure 5: CDDL Description of the SCONEAdviceUpdated Data.
+
+   This event may be emitted in the following common cases (non-
+   exhaustive):
+
+   *  When throughput advice first becomes effective, for example, after
+      processing a SCONE packet carrying a known rate signal.
+
+   *  Processing a SCONE packet that lowers the effective throughput
+      advice.
+
+   *  Advice from a previous monitoring period expires and advice from
+      the current monitoring period becomes effective.
+
+   This event SHOULD NOT be emitted when advice from a previous
+   monitoring period expires, but the advice in the current monitoring
+   period does not change the effective advice.
+
+5.4.  scone:advice_expired
+
+   Importance: Base
+
+   The advice_expired event is emitted by a SCONE-receiving endpoint
+   when previously effective SCONE advice expires because no applicable
+   throughput advice was received during the monitoring period, as
+   defined in [SCONE].
+
+   SCONEAdviceExpired = {
+     previous_throughput_advice: uint64
+     ; The effective previous advice in bits per second
+
+     * $$scone-adviceexpired-extension
+   }
+
+         Figure 6: CDDL Description of the SCONEAdviceExpired Data.
+
+6.  Security Considerations
+
+   The security and privacy considerations discussed in Section 14 of
+   [QLOG-SCHEMA] apply to this document.
+
+7.  IANA Considerations
+
+   This document registers a new entry in the "qlog event schema URIs"
+   registry (created in Section 15 of [QLOG-SCHEMA]).
+
+   Event schema URI:  urn:ietf:params:qlog:events:scone
+
+   Namespace  scone
+
+   Event Types  packet_sent, packet_received, advice_updated,
+      advice_expired
+
+   Description:  Event definitions related to the SCONE protocol.
+
+   Reference:  This Document
+
+8.  Normative References
+
+   [CDDL]     Birkholz, H., Vigano, C., and C. Bormann, "Concise Data
+              Definition Language (CDDL): A Notational Convention to
+              Express Concise Binary Object Representation (CBOR) and
+              JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
+              June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
+
+   [QLOG-SCHEMA]
+              Marx, R., Niccolini, L., Seemann, M., and L. Pardue,
+              "qlog: Structured Logging for Network Protocols", Work in
+              Progress, Internet-Draft, draft-ietf-quic-qlog-main-
+              schema-14, 6 July 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
+              qlog-main-schema-14>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
+              Ihlar, "Standard Communication with Network Elements
+              (SCONE) Protocol", Work in Progress, Internet-Draft,
+              draft-ietf-scone-protocol-09, 24 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
+              protocol-09>.
+
+Acknowledgments
+
+   The authors thank the European Space Agency (ESA) for supporting the
+   QUICOPTSAT project, under which an evaluation of SCONE over satellite
+   networks was undertaken.
+
+Authors' Addresses
+
+   Raghav Kejriwal
+   University of Aberdeen
+   Fraser Noble Building
+   Aberdeen, AB24 3UE
+   United Kingdom
+   Email: ietf@raghavkejriwal.com
+
+
+   Godred Fairhurst
+   University of Aberdeen
+   Fraser Noble Building
+   Aberdeen, AB24 3UE
+   United Kingdom
+   Email: gorry@erg.abdn.ac.uk
+   URI:   https://www.erg.abdn.ac.uk
