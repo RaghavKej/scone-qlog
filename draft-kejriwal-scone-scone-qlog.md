@@ -42,6 +42,7 @@ author:
 normative:
   SCONE: I-D.ietf-scone-protocol
   QLOG-SCHEMA: I-D.ietf-quic-qlog-main-schema
+  QLOG-QUIC: I-D.ietf-quic-qlog-quic-events
   CDDL: RFC8610
 
 informative:
@@ -128,7 +129,7 @@ The packet_sent event is emitted when an endpoint includes a SCONE packet in a d
 
 ~~~cddl
 SCONEPacketSent = {
-  ? datagram_id: uint32
+  ? datagram_payload_checksum: uint32
   version: uint32
   rate_signal: SCONERateSignal
   ; expected to be 127 when a packet is sent by an endpoint
@@ -141,6 +142,8 @@ SCONEPacketSent = {
 ~~~
 {: #fig-sent title="CDDL Description of the SCONEPacketSent Data."}
 
+The `datagram_payload_checksum` field is described in {{Section 9 of QLOG-QUIC}}.
+
 ## scone:packet_received {#received}
 
 Importance: Core
@@ -149,7 +152,7 @@ The packet_received event is emitted when an endpoint receives a datagram that b
 
 ~~~cddl
 SCONEPacketReceived = {
-  ? datagram_id: uint32
+  ? datagram_payload_checksum: uint32
   version: uint32
   rate_signal: SCONERateSignal
   ? throughput_advice: uint64
@@ -171,6 +174,8 @@ SCONEPacketReceived = {
 }
 ~~~
 {: #fig-received title="CDDL Description of the SCONEPacketReceived Data."}
+
+The `datagram_payload_checksum` field is described in {{Section 9 of QLOG-QUIC}}.
 
 The `reason` field MAY be omitted if the value of `outcome` is "discarded", and MUST NOT be present if the value of `outcome` is "accepted".
 
