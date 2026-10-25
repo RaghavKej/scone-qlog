@@ -178,14 +178,23 @@ The `reason` field MAY be omitted if the value of `outcome` is "discarded", and 
 
 Importance: Base
 
-The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}.
+The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}. Following the convention of other qlog `*_updated` events, the event records both the previous and the new effective advice, and an optional `trigger` field indicates the cause of the change ({{Section 8.2.1 of QLOG-SCHEMA}}).
 
 ~~~cddl
 SCONEAdviceUpdated = {
+  ; previous effective throughput advice in bits per second;
+  ; absent when no advice was in effect
+  ? old: uint64
+  ; new effective throughput advice in bits per second
+  new: uint64
+  ; rate signal corresponding to the new effective advice
   rate_signal: SCONEKnownRateSignal
-  ; Rate signal corresponding to the effective advice
-  throughput_advice: uint64
-  ; Effective throughput advice in bits per second
+  ? trigger:
+    ; a received SCONE packet changed the effective advice
+    "packet_received" /
+    ; advice from the previous monitoring period expired and
+    ; advice from the current period became effective
+    "period_expired"
 
   * $$scone-adviceupdated-extension
 }
@@ -194,11 +203,11 @@ SCONEAdviceUpdated = {
 
 This event may be emitted in the following common cases (non-exhaustive):
 
-- When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal.
-- Processing a SCONE packet that lowers the effective throughput advice.
-- Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective.
+- When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case `old` is absent and `trigger` is "packet_received".
+- Processing a SCONE packet that lowers the effective throughput advice. In this case `trigger` is "packet_received".
+- Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case `trigger` is "period_expired".
 
-This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice.
+This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, `old` and `new` SHOULD differ.
 
 ## scone:advice_expired {#expired}
 
