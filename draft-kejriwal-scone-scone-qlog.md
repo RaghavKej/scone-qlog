@@ -220,6 +220,8 @@ SCONEAdviceExpired = {
 
 The security and privacy considerations discussed in {{Section 14 of QLOG-SCHEMA}} apply to this document.
 
+The events defined in this document record the rate signals and throughput advice that a network applies to the traffic of the logging endpoint. A qlog file containing these events therefore reveals the policy that an access network applied to that endpoint, and can help identify the network or infer the endpoint's subscription, as discussed in {{Section 10 of SCONE}}. When qlog files are shared beyond the logging endpoint, the data minimization and anonymization guidance in {{Section 14.3 of QLOG-SCHEMA}} is RECOMMENDED for these fields.
+
 # IANA Considerations {#iana}
 
 This document registers a new entry in the "qlog event schema URIs" registry (created in {{Section 15 of QLOG-SCHEMA}}).
