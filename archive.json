@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-22T03:22:45.204319+00:00",
+  "timestamp": "2026-10-25T03:17:55.902669+00:00",
   "repo": "RaghavKej/scone-qlog",
   "labels": [
     {
@@ -55,5 +55,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOVSd4eM8AAAABKSkOMg",
+      "title": "Add scone packet observed event",
+      "url": "https://github.com/RaghavKej/scone-qlog/pull/1",
+      "state": "OPEN",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Added a packet_observed event for network elements to record SCONE information (received and, where applicable, modified).\n\nUpdated the event summary table, IANA registration, abstract, and introduction accordingly.",
+      "createdAt": "2026-10-23T15:55:30Z",
+      "updatedAt": "2026-10-23T15:57:01Z",
+      "baseRepository": "RaghavKej/scone-qlog",
+      "baseRefName": "main",
+      "baseRefOid": "2c23db69a512183db3990116f58c3f373b41f810",
+      "headRepository": "RaghavKej/scone-qlog",
+      "headRefName": "add_ne_events",
+      "headRefOid": "900a2d7e271f5e9b21a5f8d45a6fe6ddcbcbea71",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
