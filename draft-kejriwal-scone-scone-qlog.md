@@ -215,8 +215,12 @@ Importance: Base
 
 The advice_expired event is emitted by a SCONE-receiving endpoint when previously effective SCONE advice expires because no applicable throughput advice was received during the monitoring period, as defined in {{SCONE}}.
 
+This event is emitted only when the end of a monitoring period leaves no effective throughput advice ({{Section 5.4 of SCONE}}). If other advice becomes effective at that point, for example advice received during the monitoring period that just ended, the advice_updated event ({{updated}}) is emitted instead; the two events are never both emitted for the same transition.
+
 ~~~cddl
 SCONEAdviceExpired = {
+  previous_rate_signal: SCONEKnownRateSignal
+  ; rate signal corresponding to the expired advice
   previous_throughput_advice: uint64
   ; The effective previous advice in bits per second
 
