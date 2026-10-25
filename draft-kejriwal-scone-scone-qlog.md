@@ -42,6 +42,7 @@ author:
 normative:
   SCONE: I-D.ietf-scone-protocol
   QLOG-SCHEMA: I-D.ietf-quic-qlog-main-schema
+  QLOG-QUIC: I-D.ietf-quic-qlog-quic-events
   CDDL: RFC8610
 
 informative:
@@ -129,7 +130,8 @@ The packet_sent event is emitted when an endpoint includes a SCONE packet in a d
 ~~~cddl
 SCONEPacketSent = {
   ? datagram_id: uint32
-  version: uint32
+  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; expected to be 127 when a packet is sent by an endpoint
   ? trigger: "loss_detected"
@@ -141,6 +143,8 @@ SCONEPacketSent = {
 ~~~
 {: #fig-sent title="CDDL Description of the SCONEPacketSent Data."}
 
+The `version` field is optional because it is fully determined by `rate_signal`: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal ({{Section 5.1 of SCONE}}). It uses the `QuicVersion` type defined in {{Section 8.1 of QLOG-QUIC}}.
+
 ## scone:packet_received {#received}
 
 Importance: Core
@@ -150,7 +154,8 @@ The packet_received event is emitted when an endpoint receives a datagram that b
 ~~~cddl
 SCONEPacketReceived = {
   ? datagram_id: uint32
-  version: uint32
+  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; bits per second encoded by the rate_signal
   ; absent when rate_signal is 127
