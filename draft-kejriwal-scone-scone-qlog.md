@@ -86,7 +86,7 @@ This document follows the language used in {{SCONE}}:
 
 # SCONE Rate Signal Data Type
 
-A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second {{SCONE}}. The value 127 carries no throughput advice.
+A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second, as defined in {{Section 5.1 of SCONE}}. The value 127 carries no throughput advice.
 
 ~~~cddl
 SCONERateSignal = 0..127
@@ -152,9 +152,10 @@ SCONEPacketReceived = {
   ? datagram_id: uint32
   version: uint32
   rate_signal: SCONERateSignal
+  ; throughput advice in bits per second derived from rate_signal
+  ; as defined in Section 5.1 of SCONE; logged so that tools need not
+  ; implement the mapping; absent when rate_signal is 127
   ? throughput_advice: uint64
-  ; bits per second encoded by the rate_signal
-  ; absent when rate_signal is 127
   outcome: "accepted" / "discarded"
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
