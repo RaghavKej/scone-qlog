@@ -158,21 +158,27 @@ SCONEPacketReceived = {
   outcome: "accepted" / "discarded"
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
+  ; no coalesced QUIC packet in the datagram was successfully processed
   ? reason: "coalesced_packet_not_processed" /
-            ; no coalesced QUIC packet in the datagram was successfully processed
             "destination_connection_id_mismatch" /
             "source_connection_id_mismatch" /
-            "multiple_scone_packets_received" /
             ; multiple scone packets were received in one datagram
-            "unknown_rate_signal"
+            "multiple_scone_packets_received" /
             ; rate signal was 127
+            "unknown_rate_signal" /
+            ; this endpoint did not send the scone_supported transport parameter
+            "not_negotiated" /
+            ; the SCONE packet was not the first packet in the datagram
+            "not_first_packet" /
+            ; discarded for a reason not listed here
+            "unspecified"
 
   * $$scone-packetreceived-extension
 }
 ~~~
 {: #fig-received title="CDDL Description of the SCONEPacketReceived Data."}
 
-The `reason` field MAY be omitted if the value of `outcome` is "discarded", and MUST NOT be present if the value of `outcome` is "accepted".
+The `reason` field SHOULD be present when `outcome` is "discarded" and MUST NOT be present when `outcome` is "accepted".
 
 ## scone:advice_updated {#updated}
 
