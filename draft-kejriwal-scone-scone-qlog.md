@@ -145,7 +145,7 @@ SCONEPacketSent = {
 
 Importance: Core
 
-The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, after the packet (and any subsequent coalesced packets) have been parsed to check validity {{SCONE}}. The event records the rate signal carried in the received SCONE packet and the outcome of processing it, regardless of whether the packet is accepted or discarded.
+The packet_received event is emitted when an endpoint receives a datagram that begins with a SCONE packet, once the endpoint has processed the coalesced QUIC packets in the datagram and therefore knows whether the SCONE packet is accepted or discarded ({{Section 5.3 of SCONE}}). The event records the rate signal carried in the received SCONE packet and the outcome of processing it, regardless of whether the packet is accepted or discarded.
 
 ~~~cddl
 SCONEPacketReceived = {
@@ -159,7 +159,7 @@ SCONEPacketReceived = {
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
   ? reason: "coalesced_packet_not_processed" /
-            ; no coalesced packets were successfully processed
+            ; no coalesced QUIC packet in the datagram was successfully processed
             "destination_connection_id_mismatch" /
             "source_connection_id_mismatch" /
             "multiple_scone_packets_received" /
