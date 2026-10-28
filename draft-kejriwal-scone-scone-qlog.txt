@@ -5,7 +5,7 @@
 Standard Communication with Network Elements                 R. Kejriwal
 Internet-Draft                                              G. Fairhurst
 Intended status: Standards Track                  University of Aberdeen
-Expires: 26 April 2027                                   23 October 2026
+Expires: 1 May 2027                                      28 October 2026
 
 
                   QUIC Logging for the SCONE Protocol
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 April 2027.
+   This Internet-Draft will expire on 1 May 2027.
 
 Copyright Notice
 
@@ -214,39 +214,48 @@ Table of Contents
    Importance: Core
 
    The packet_received event is emitted when an endpoint receives a
-   datagram that begins with a SCONE packet, after the packet (and any
-   subsequent coalesced packets) have been parsed to check validity
-   [SCONE].  The event records the rate signal carried in the received
-   SCONE packet and the outcome of processing it, regardless of whether
-   the packet is accepted or discarded.
+   datagram that begins with a SCONE packet, once the endpoint has
+   processed the coalesced QUIC packets in the datagram and therefore
+   knows whether the SCONE packet is accepted or discarded (Section 5.3
+   of [SCONE]).  The event records the rate signal carried in the
+   received SCONE packet and the outcome of processing it, regardless of
+   whether the packet is accepted or discarded.
 
    SCONEPacketReceived = {
      ? datagram_id: uint32
      version: uint32
      rate_signal: SCONERateSignal
-     ? throughput_advice: uint64
      ; bits per second encoded by the rate_signal
      ; absent when rate_signal is 127
-     outcome: "accepted" / "discarded"
+     ? throughput_advice: uint64
      ; accepted implies the packet was valid and contained a
      ; SCONEKnownRateSignal regardless of whether the advice was applied
-     ? reason: "coalesced_packet_not_processed" /
-               ; no coalesced packets were successfully processed
-               "destination_connection_id_mismatch" /
+     outcome: "accepted" / "discarded"
+
+     ? reason: "destination_connection_id_mismatch" /
                "source_connection_id_mismatch" /
-               "multiple_scone_packets_received" /
+               ; no coalesced QUIC packet in the
+               ; datagram was successfully processed
+               "coalesced_packet_not_processed" /
                ; multiple scone packets were received in one datagram
-               "unknown_rate_signal"
+               "multiple_scone_packets_received" /
                ; rate signal was 127
+               "unknown_rate_signal" /
+               ; this endpoint did not send the
+               ; scone_supported transport parameter
+               "not_negotiated" /
+               ; SCONE packet was not the first packet in the datagram
+               "not_first_packet" /
+               ; discarded for a reason not listed here
+               "unspecified"
 
      * $$scone-packetreceived-extension
    }
 
         Figure 4: CDDL Description of the SCONEPacketReceived Data.
 
-   The reason field MAY be omitted if the value of outcome is
-   "discarded", and MUST NOT be present if the value of outcome is
-   "accepted".
+   The reason field MUST be present when outcome is "discarded" and MUST
+   NOT be present when outcome is "accepted".
 
 5.3.  scone:advice_updated
 
@@ -351,9 +360,9 @@ Table of Contents
    [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
               Ihlar, "Standard Communication with Network Elements
               (SCONE) Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-scone-protocol-09, 24 September 2026,
+              draft-ietf-scone-protocol-10, 28 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
-              protocol-09>.
+              protocol-10>.
 
 Acknowledgments
 
