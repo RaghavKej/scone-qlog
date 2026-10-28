@@ -24,17 +24,19 @@ author:
  -
     fullname: "Raghav Kejriwal"
     organization: University of Aberdeen
-    street: School of Engineering
-    street: Fraser Noble Building
-    city: Aberdeen, AB24 3UE
+    postal:
+      - School of Engineering
+      - Fraser Noble Building
+      - Aberdeen, AB24 3UE
     country: UK
     email: "ietf@raghavkejriwal.com"
  -
     fullname: "Godred Fairhurst"
     organization: University of Aberdeen
-    street: School of Engineering
-    street: Fraser Noble Building
-    city: Aberdeen, AB24 3UE
+    postal:
+      - School of Engineering
+      - Fraser Noble Building
+      - Aberdeen, AB24 3UE
     country: UK
     email: "gorry@erg.abdn.ac.uk"
     uri: https://www.erg.abdn.ac.uk
@@ -42,9 +44,10 @@ author:
     fullname: "Matthias Hofstätter"
     ascii: "Matthias Hofstaetter"
     organization: FAU Erlangen-Nürnberg
-    extaddr: Computer Science 7
-    street: Martensstraße 3
-    city: 91058 Erlangen
+    postal:
+      - Computer Science 7
+      - Martensstraße 3
+      - 91058 Erlangen
     country: Germany
     email: "matthias.hofstaetter@fau.de"
     uri: https://www.cs7.tf.fau.de
