@@ -201,13 +201,15 @@ SCONEAdviceUpdated = {
 ~~~
 {: #fig-updated title="CDDL Description of the SCONEAdviceUpdated Data."}
 
-This event may be emitted in the following common cases (non-exhaustive):
+This event could be emitted in the following common cases (non-exhaustive):
 
 - When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case `old` is absent and `trigger` is "packet_received".
 - Processing a SCONE packet that lowers the effective throughput advice. In this case `trigger` is "packet_received".
 - Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case `trigger` is "period_expired".
 
 This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, `old` and `new` SHOULD differ.
+
+Note: This event might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.
 
 ## scone:advice_expired {#expired}
 
@@ -228,6 +230,8 @@ SCONEAdviceExpired = {
 }
 ~~~
 {: #fig-expired title="CDDL Description of the SCONEAdviceExpired Data."}
+
+Note: For the same reasons as in {{updated}}, this event might or might not align with the boundary of the 67 second monitoring period.
 
 # Security Considerations {#security}
 
