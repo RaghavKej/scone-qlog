@@ -38,6 +38,16 @@ author:
     country: UK
     email: "gorry@erg.abdn.ac.uk"
     uri: https://www.erg.abdn.ac.uk
+ -
+    fullname: "Matthias Hofstätter"
+    ascii: "Matthias Hofstaetter"
+    organization: FAU Erlangen-Nürnberg
+    extaddr: Computer Science 7
+    street: Martensstraße 3
+    city: 91058 Erlangen
+    country: Germany
+    email: "matthias.hofstaetter@fau.de"
+    uri: https://www.cs7.tf.fau.de
 
 normative:
   SCONE: I-D.ietf-scone-protocol
