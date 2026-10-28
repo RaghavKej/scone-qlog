@@ -152,13 +152,13 @@ SCONEPacketReceived = {
   ? datagram_id: uint32
   version: uint32
   rate_signal: SCONERateSignal
-  ? throughput_advice: uint64
   ; bits per second encoded by the rate_signal
   ; absent when rate_signal is 127
-  outcome: "accepted" / "discarded"
+  ? throughput_advice: uint64
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
-
+  outcome: "accepted" / "discarded"
+  
   ? reason: "destination_connection_id_mismatch" /
             "source_connection_id_mismatch" /
             ; no coalesced QUIC packet in the
