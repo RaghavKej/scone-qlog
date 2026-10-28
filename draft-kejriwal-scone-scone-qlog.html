@@ -1489,6 +1489,7 @@ SCONEAdviceExpired = {
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-6-1">The security and privacy considerations discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-14" class="relref">Section 14</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> apply to this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The events defined in this document record the rate signals and throughput advice that a network applies to the traffic of the logging endpoint. A qlog file containing these events therefore reveals the policy that an access network applied to that endpoint, and can help identify the network or infer the endpoint's subscription, as discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-10" class="relref">Section 10</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>. When qlog files are shared beyond the logging endpoint, the data minimization and anonymization guidance in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-14.3" class="relref">Section 14.3</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> is <span class="bcp14">RECOMMENDED</span> for these fields.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana">
