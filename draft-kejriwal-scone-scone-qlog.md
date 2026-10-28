@@ -50,7 +50,7 @@ informative:
 
 --- abstract
 
-This document defines qlog events for the Standard Communication with Network Elements (SCONE) protocol. The events record the sending and reception of SCONE packets and changes to throughput advice.
+This document defines qlog events for the Standard Communication with Network Elements (SCONE) protocol. The events record the sending and reception of SCONE packets, changes to effective throughput advice, and the observation or modification of SCONE packets by network elements.
 
 --- middle
 
@@ -58,9 +58,9 @@ This document defines qlog events for the Standard Communication with Network El
 
 {{SCONE}} describes a protocol where on-path network elements can communicate their perspective on the maximum sustainable throughput for QUIC flows to endpoints. This throughput advice suggests an upper bound on long-term average throughput, independent of and complementary to real-time congestion control signals.
 
-This document defines the qlog namespace and events that record the sending and reception of SCONE packets and changes to throughput advice, allowing for debugging of implementations and reconstruction of the packets received.
+This document defines the qlog namespace and events that record the sending and reception of SCONE packets, changes to effective throughput advice, and the observation or modification of SCONE packets by network elements, allowing for debugging of implementations and reconstruction of the packet processing along the path.
 
-The event namespace with the identifier scone is defined in {{namespace}}.
+The event namespace with the identifier `scone` is defined in {{namespace}}.
 
 {{tab-scone-event-overview}} summarises the qlog events described in this document.
 
@@ -71,6 +71,7 @@ The event namespace with the identifier scone is defined in {{namespace}}.
 | scone:packet_received | Core | {{received}} |
 | scone:advice_updated | Base | {{updated}} |
 | scone:advice_expired | Base | {{expired}} |
+| scone:packet_observed | Base | {{observed}} |
 {: #tab-scone-event-overview title="Overview of SCONE qlog events."}
 
 # Conventions and Definitions
@@ -99,7 +100,7 @@ SCONEKnownRateSignal = 0..126
 This document describes how the SCONE protocol can be expressed in qlog using the event schema. Per the requirements in {{Section 8 of QLOG-SCHEMA}}, this document registers the `scone` namespace. The event schema URI is `urn:ietf:params:qlog:events:scone`.
 
 ## Draft Event Schema Identification
-RFC-Editor NOTE:: Please remove this section when this is published as an RFC.
+RFC-Editor NOTE: Please remove this section when this is published as an RFC.
 
 Only implementations of the final, published RFC can use the events belonging to the event schema with the URI `urn:ietf:params:qlog:events:scone`. Until such an RFC exists, implementations MUST NOT identify themselves using this URI.
 
@@ -115,7 +116,8 @@ SCONE events extend the `$ProtocolEventData` extension point defined in {{Sectio
 SCONEEventData = SCONEPacketSent /
                  SCONEPacketReceived /
                  SCONEAdviceUpdated /
-                 SCONEAdviceExpired
+                 SCONEAdviceExpired /
+                 SCONEPacketObserved
 $ProtocolEventData /= SCONEEventData
 ~~~
 {: #scone-events-def title="SCONEEventData definition and ProtocolEventData extension"}
@@ -225,6 +227,40 @@ SCONEAdviceExpired = {
 ~~~
 {: #fig-expired title="CDDL Description of the SCONEAdviceExpired Data."}
 
+## scone:packet_observed {#observed}
+
+Importance: Base
+
+The packet_observed event is emitted by an observer or network element {{SCONE}} on the network path when it receives and forwards a SCONE packet along the path. The event records the SCONE information received by the network element and, if the packet is modified, the corresponding information sent onward.
+
+~~~cddl
+SCONEPacketObserved = {
+  ? datagram_id: uint32
+  received_version: uint32
+  ; the packet version received by the observer
+  received_rate_signal: SCONERateSignal
+  ; the raw rate signal received
+  ? received_throughput_advice: uint64
+  ; throughput advice encoded by the received_rate_signal
+  ; bits per second; absent if received_rate_signal is 127
+  ? (
+    new_version: uint32
+    ; the packet version sent onwards
+    new_rate_signal: SCONEKnownRateSignal
+    ; the raw rate signal sent onwards
+    new_throughput_advice: uint64
+    ; throughput advice encoded by the new_rate_signal
+    ; bits per second
+  )
+  ; all three fields present if the packet is modified
+
+  * $$scone-packetobserved-extension
+}
+~~~
+{: #fig-observed title="CDDL Description of the SCONEPacketObserved Data."}
+
+This event is intended for on-path observers or network elements that receive and forward SCONE packets. The `received_*` fields describe the SCONE information received by the network element, while the `new_*` fields describe the corresponding information sent onward if the packet is modified by the network element. If the network element modifies the SCONE throughput advice, the `new_version`, `new_rate_signal`, and `new_throughput_advice` fields MUST all be present. If the network element does not modify the SCONE throughput advice, these fields SHOULD NOT be present.
+
 # Security Considerations {#security}
 
 The security and privacy considerations discussed in {{Section 14 of QLOG-SCHEMA}} apply to this document.
@@ -242,7 +278,7 @@ Namespace
 : scone
 
 Event Types
-: packet_sent, packet_received, advice_updated, advice_expired
+: packet_sent, packet_received, advice_updated, advice_expired, packet_observed
 
 Description:
 : Event definitions related to the SCONE protocol.
