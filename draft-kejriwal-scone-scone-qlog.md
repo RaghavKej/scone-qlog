@@ -158,7 +158,7 @@ SCONEPacketReceived = {
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
   outcome: "accepted" / "discarded"
-  
+
   ? reason: "destination_connection_id_mismatch" /
             "source_connection_id_mismatch" /
             ; no coalesced QUIC packet in the
