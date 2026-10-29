@@ -95,8 +95,8 @@ The event and data structure definitions in this document are expressed in the C
 
 This document follows the language used in {{SCONE}}:
 
-- "Throughput advice" refers to the information communicated to endpoints by network elements in the form of a 7-bit rate signal
-- A "monitoring period" is the time over which rate signals apply (67 seconds {{SCONE}}).
+* "Throughput advice" refers to the information communicated to endpoints by network elements in the form of a 7-bit rate signal
+* A "monitoring period" is the time over which rate signals apply (67 seconds {{SCONE}}).
 
 # SCONE Rate Signal Data Type
 
@@ -143,13 +143,14 @@ The packet_sent event is emitted when an endpoint includes a SCONE packet in a d
 ~~~cddl
 SCONEPacketSent = {
   ? datagram_id: uint32
-  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ; derivable from rate_signal
+  ; 0x6f7dc0fd when even, 0xef7dc0fd when odd
   ? version: QuicVersion
-  rate_signal: SCONERateSignal
   ; expected to be 127 when a packet is sent by an endpoint
-  ? trigger: "loss_detected"
+  rate_signal: SCONERateSignal
   ; indicates that the SCONE packet is being sent again
   ; because a coalesced QUIC packet was detected to be lost
+  ? trigger: "loss_detected"
 
   * $$scone-packetsent-extension
 }
@@ -167,7 +168,8 @@ The packet_received event is emitted when an endpoint receives a datagram that b
 ~~~cddl
 SCONEPacketReceived = {
   ? datagram_id: uint32
-  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ; derivable from rate_signal
+  ; 0x6f7dc0fd when even, 0xef7dc0fd when odd
   ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; bits per second encoded by the rate_signal
@@ -230,9 +232,9 @@ SCONEAdviceUpdated = {
 
 This event could be emitted in the following common cases (non-exhaustive):
 
-- When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case `old` is absent and `trigger` is "packet_received".
-- Processing a SCONE packet that lowers the effective throughput advice. In this case `trigger` is "packet_received".
-- Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case `trigger` is "period_expired".
+* When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case `old` is absent and `trigger` is "packet_received".
+* Processing a SCONE packet that lowers the effective throughput advice. In this case `trigger` is "packet_received".
+* Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case `trigger` is "period_expired".
 
 This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, `old` and `new` SHOULD differ.
 
@@ -248,10 +250,10 @@ This event is emitted only when the end of a monitoring period leaves no effecti
 
 ~~~cddl
 SCONEAdviceExpired = {
-  previous_rate_signal: SCONEKnownRateSignal
   ; rate signal corresponding to the expired advice
-  previous_throughput_advice: uint64
+  previous_rate_signal: SCONEKnownRateSignal
   ; The effective previous advice in bits per second
+  previous_throughput_advice: uint64
 
   * $$scone-adviceexpired-extension
 }
@@ -286,6 +288,16 @@ Reference:
 : This Document
 
 --- back
+
+# Change Log
+* -00 was the first draft
+* -01
+  * Add Matthias Hofstaetter as an author
+  * Added security considerations
+  * Moved CDDL comments to above variables to follow other qlog conventions
+  * Advice events now follow other conventions (using new and old)
+  * Highlighted that advice events may not always align with monitoring period boundaries
+  * Changed version field to QuicVersion type and an optional field
 
 # Acknowledgments
 {:numbered="false"}
