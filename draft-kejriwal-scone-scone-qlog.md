@@ -200,27 +200,38 @@ The `reason` field MUST be present when `outcome` is "discarded" and MUST NOT be
 
 Importance: Base
 
-The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}.
+The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in {{SCONE}}. Following the convention of other qlog `*_updated` events, the event records both the previous and the new effective advice, and an optional `trigger` field indicates the cause of the change ({{Section 8.2.1 of QLOG-SCHEMA}}).
 
 ~~~cddl
 SCONEAdviceUpdated = {
+  ; previous effective throughput advice in bits per second;
+  ; absent when no advice was in effect
+  ? old: uint64
+  ; new effective throughput advice in bits per second
+  new: uint64
+  ; rate signal corresponding to the new effective advice
   rate_signal: SCONEKnownRateSignal
-  ; Rate signal corresponding to the effective advice
-  throughput_advice: uint64
-  ; Effective throughput advice in bits per second
+  ? trigger:
+    ; a received SCONE packet changed the effective advice
+    "packet_received" /
+    ; advice from the previous monitoring period expired and
+    ; advice from the current period became effective
+    "period_expired"
 
   * $$scone-adviceupdated-extension
 }
 ~~~
 {: #fig-updated title="CDDL Description of the SCONEAdviceUpdated Data."}
 
-This event may be emitted in the following common cases (non-exhaustive):
+This event could be emitted in the following common cases (non-exhaustive):
 
-- When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal.
-- Processing a SCONE packet that lowers the effective throughput advice.
-- Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective.
+- When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case `old` is absent and `trigger` is "packet_received".
+- Processing a SCONE packet that lowers the effective throughput advice. In this case `trigger` is "packet_received".
+- Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case `trigger` is "period_expired".
 
-This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice.
+This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, `old` and `new` SHOULD differ.
+
+Note: This event aligns with an API transition. It might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.
 
 ## scone:advice_expired {#expired}
 
@@ -228,8 +239,12 @@ Importance: Base
 
 The advice_expired event is emitted by a SCONE-receiving endpoint when previously effective SCONE advice expires because no applicable throughput advice was received during the monitoring period, as defined in {{SCONE}}.
 
+This event is emitted only when the end of a monitoring period leaves no effective throughput advice ({{Section 5.4 of SCONE}}). If other advice becomes effective at that point, for example advice received during the monitoring period that just ended, the advice_updated event ({{updated}}) is emitted instead; the two events are never both emitted for the same transition.
+
 ~~~cddl
 SCONEAdviceExpired = {
+  previous_rate_signal: SCONEKnownRateSignal
+  ; rate signal corresponding to the expired advice
   previous_throughput_advice: uint64
   ; The effective previous advice in bits per second
 
@@ -237,6 +252,8 @@ SCONEAdviceExpired = {
 }
 ~~~
 {: #fig-expired title="CDDL Description of the SCONEAdviceExpired Data."}
+
+Note: For the same reasons as in {{updated}}, this event might or might not align with the boundary of the 67 second monitoring period.
 
 # Security Considerations {#security}
 
