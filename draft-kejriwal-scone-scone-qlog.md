@@ -24,20 +24,33 @@ author:
  -
     fullname: "Raghav Kejriwal"
     organization: University of Aberdeen
-    street: School of Engineering
+    extaddr: School of Engineering
     street: Fraser Noble Building
-    city: Aberdeen, AB24 3UE
+    city: Aberdeen
+    code: AB24 3UE
     country: UK
     email: "ietf@raghavkejriwal.com"
  -
     fullname: "Godred Fairhurst"
     organization: University of Aberdeen
-    street: School of Engineering
+    extaddr: School of Engineering
     street: Fraser Noble Building
-    city: Aberdeen, AB24 3UE
+    city: Aberdeen
+    code: AB24 3UE
     country: UK
     email: "gorry@erg.abdn.ac.uk"
     uri: https://www.erg.abdn.ac.uk
+ -
+    fullname: "Matthias Hofstätter"
+    ascii: "Matthias Hofstaetter"
+    organization: FAU Erlangen-Nürnberg
+    extaddr: Computer Science 7
+    street: Martensstraße 3
+    city: Erlangen
+    code: 91058
+    country: Germany
+    email: "matthias.hofstaetter@fau.de"
+    uri: https://www.cs7.tf.fau.de
 
 normative:
   SCONE: I-D.ietf-scone-protocol
