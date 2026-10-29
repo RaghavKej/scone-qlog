@@ -429,6 +429,9 @@ Table of Contents
 
 Appendix A.  Change Log
 
+   RFC-Editor NOTE:: Please remove this section when this is published
+   as an RFC.
+
    *  -00 was the first draft
 
    *  -01
