@@ -1427,16 +1427,25 @@ SCONEPacketReceived = {
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-sconeadvice_updated" class="section-name selfRef">scone:advice_updated</a>
         </h3>
 <p id="section-5.3-1">Importance: Base<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>. Following the convention of other qlog <code>*_updated</code> events, the event records both the previous and the new effective advice, and an optional <code>trigger</code> field indicates the cause of the change (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-8.2.1" class="relref">Section 8.2.1</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <span id="name-cddl-description-of-the-scone"></span><div id="fig-updated">
 <figure id="figure-5">
           <div class="lang-cddl sourcecode" id="section-5.3-3.1">
 <pre>
 SCONEAdviceUpdated = {
+  ; previous effective throughput advice in bits per second;
+  ; absent when no advice was in effect
+  ? old: uint64
+  ; new effective throughput advice in bits per second
+  new: uint64
+  ; rate signal corresponding to the new effective advice
   rate_signal: SCONEKnownRateSignal
-  ; Rate signal corresponding to the effective advice
-  throughput_advice: uint64
-  ; Effective throughput advice in bits per second
+  ? trigger:
+    ; a received SCONE packet changed the effective advice
+    "packet_received" /
+    ; advice from the previous monitoring period expired and
+    ; advice from the current period became effective
+    "period_expired"
 
   * $$scone-adviceupdated-extension
 }
@@ -1446,19 +1455,20 @@ SCONEAdviceUpdated = {
 <a href="#name-cddl-description-of-the-scone" class="selfRef">CDDL Description of the SCONEAdviceUpdated Data.</a>
           </figcaption></figure>
 </div>
-<p id="section-5.3-4">This event may be emitted in the following common cases (non-exhaustive):<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">This event could be emitted in the following common cases (non-exhaustive):<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-5.1">
-            <p id="section-5.3-5.1.1">When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal.<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.1.1">When throughput advice first becomes effective, for example, after processing a SCONE packet carrying a known rate signal. In this case <code>old</code> is absent and <code>trigger</code> is "packet_received".<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-5.2">
-            <p id="section-5.3-5.2.1">Processing a SCONE packet that lowers the effective throughput advice.<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.2.1">Processing a SCONE packet that lowers the effective throughput advice. In this case <code>trigger</code> is "packet_received".<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-5.3">
-            <p id="section-5.3-5.3.1">Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective.<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.3.1">Advice from a previous monitoring period expires and advice from the current monitoring period becomes effective. In this case <code>trigger</code> is "period_expired".<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.3-6">This event <span class="bcp14">SHOULD NOT</span> be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.3-6">This event <span class="bcp14">SHOULD NOT</span> be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, <code>old</code> and <code>new</code> <span class="bcp14">SHOULD</span> differ.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.3-7">Note: This event aligns with an API transition. It might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.<a href="#section-5.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="expired">
@@ -1468,11 +1478,14 @@ SCONEAdviceUpdated = {
         </h3>
 <p id="section-5.4-1">Importance: Base<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">The advice_expired event is emitted by a SCONE-receiving endpoint when previously effective SCONE advice expires because no applicable throughput advice was received during the monitoring period, as defined in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">This event is emitted only when the end of a monitoring period leaves no effective throughput advice (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-5.4" class="relref">Section 5.4</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>). If other advice becomes effective at that point, for example advice received during the monitoring period that just ended, the advice_updated event (<a href="#updated" class="auto internal xref">Section 5.3</a>) is emitted instead; the two events are never both emitted for the same transition.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 <span id="name-cddl-description-of-the-sconea"></span><div id="fig-expired">
 <figure id="figure-6">
-          <div class="lang-cddl sourcecode" id="section-5.4-3.1">
+          <div class="lang-cddl sourcecode" id="section-5.4-4.1">
 <pre>
 SCONEAdviceExpired = {
+  previous_rate_signal: SCONEKnownRateSignal
+  ; rate signal corresponding to the expired advice
   previous_throughput_advice: uint64
   ; The effective previous advice in bits per second
 
@@ -1484,6 +1497,7 @@ SCONEAdviceExpired = {
 <a href="#name-cddl-description-of-the-sconea" class="selfRef">CDDL Description of the SCONEAdviceExpired Data.</a>
           </figcaption></figure>
 </div>
+<p id="section-5.4-5">Note: For the same reasons as in <a href="#updated" class="auto internal xref">Section 5.3</a>, this event might or might not align with the boundary of the 67 second monitoring period.<a href="#section-5.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
