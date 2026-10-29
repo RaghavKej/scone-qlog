@@ -143,7 +143,7 @@ SCONEPacketSent = {
 ~~~
 {: #fig-sent title="CDDL Description of the SCONEPacketSent Data."}
 
-The `version` field is optional because it is fully determined by `rate_signal`: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal ({{Section 5.1 of SCONE}}). It uses the `QuicVersion` type defined in {{Section 8.1 of QLOG-QUIC}}.
+Note: The `version` field is optional, because it is fully determined by `rate_signal`: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal ({{Section 5.1 of SCONE}}). It uses the `QuicVersion` type defined in {{Section 8.1 of QLOG-QUIC}}.
 
 ## scone:packet_received {#received}
 
