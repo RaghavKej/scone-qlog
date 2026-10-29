@@ -5,7 +5,9 @@
 Standard Communication with Network Elements                 R. Kejriwal
 Internet-Draft                                              G. Fairhurst
 Intended status: Standards Track                  University of Aberdeen
-Expires: 1 May 2027                                      28 October 2026
+Expires: 2 May 2027                                        M. Hofstätter
+                                                   FAU Erlangen-Nürnberg
+                                                         29 October 2026
 
 
                   QUIC Logging for the SCONE Protocol
@@ -50,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 May 2027.
+   This Internet-Draft will expire on 2 May 2027.
 
 Copyright Notice
 
@@ -384,16 +386,30 @@ Authors' Addresses
 
    Raghav Kejriwal
    University of Aberdeen
+   School of Engineering
    Fraser Noble Building
-   Aberdeen, AB24 3UE
+   Aberdeen
+   AB24 3UE
    United Kingdom
    Email: ietf@raghavkejriwal.com
 
 
    Godred Fairhurst
    University of Aberdeen
+   School of Engineering
    Fraser Noble Building
-   Aberdeen, AB24 3UE
+   Aberdeen
+   AB24 3UE
    United Kingdom
    Email: gorry@erg.abdn.ac.uk
    URI:   https://www.erg.abdn.ac.uk
+
+
+   Matthias Hofstätter
+   FAU Erlangen-Nürnberg
+   Computer Science 7
+   Martensstraße 3
+   91058 Erlangen
+   Germany
+   Email: matthias.hofstaetter@fau.de
+   URI:   https://www.cs7.tf.fau.de
