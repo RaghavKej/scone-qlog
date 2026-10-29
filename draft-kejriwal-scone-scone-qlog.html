@@ -1354,7 +1354,8 @@ $ProtocolEventData /= SCONEEventData
 <pre>
 SCONEPacketSent = {
   ? datagram_id: uint32
-  version: uint32
+  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; expected to be 127 when a packet is sent by an endpoint
   ? trigger: "loss_detected"
@@ -1369,6 +1370,7 @@ SCONEPacketSent = {
 <a href="#name-cddl-description-of-the-sco" class="selfRef">CDDL Description of the SCONEPacketSent Data.</a>
           </figcaption></figure>
 </div>
+<p id="section-5.1-4">Note: The <code>version</code> field is optional, because it is fully determined by <code>rate_signal</code>: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-5.1" class="relref">Section 5.1</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>). It uses the <code>QuicVersion</code> type defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13#section-8.1" class="relref">Section 8.1</a> of [<a href="#QLOG-QUIC" class="cite xref">QLOG-QUIC</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="received">
@@ -1384,7 +1386,8 @@ SCONEPacketSent = {
 <pre>
 SCONEPacketReceived = {
   ? datagram_id: uint32
-  version: uint32
+  ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+  ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; bits per second encoded by the rate_signal
   ; absent when rate_signal is 127
@@ -1555,6 +1558,10 @@ SCONEAdviceExpired = {
 <dt id="CDDL">[CDDL]</dt>
       <dd>
 <span class="refAuthor">Birkholz, H.</span>, <span class="refAuthor">Vigano, C.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures"</span>, <span class="seriesInfo">RFC 8610</span>, <span class="seriesInfo">DOI 10.17487/RFC8610</span>, <time datetime="2019-06" class="refDate">June 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="QLOG-QUIC">[QLOG-QUIC]</dt>
+      <dd>
+<span class="refAuthor">Marx, R.</span>, <span class="refAuthor">Niccolini, L.</span>, <span class="refAuthor">Seemann, M.</span>, and <span class="refAuthor">L. Pardue</span>, <span class="refTitle">"QUIC event definitions for qlog"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-qlog-quic-events-13</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13">https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QLOG-SCHEMA">[QLOG-SCHEMA]</dt>
       <dd>

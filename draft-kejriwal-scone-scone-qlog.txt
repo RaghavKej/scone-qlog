@@ -199,7 +199,8 @@ Table of Contents
 
    SCONEPacketSent = {
      ? datagram_id: uint32
-     version: uint32
+     ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+     ? version: QuicVersion
      rate_signal: SCONERateSignal
      ; expected to be 127 when a packet is sent by an endpoint
      ? trigger: "loss_detected"
@@ -210,6 +211,12 @@ Table of Contents
    }
 
           Figure 3: CDDL Description of the SCONEPacketSent Data.
+
+   Note: The version field is optional, because it is fully determined
+   by rate_signal: the two SCONE versions differ only in their most
+   significant bit, which is the least significant bit of the Rate
+   Signal (Section 5.1 of [SCONE]).  It uses the QuicVersion type
+   defined in Section 8.1 of [QLOG-QUIC].
 
 5.2.  scone:packet_received
 
@@ -225,7 +232,8 @@ Table of Contents
 
    SCONEPacketReceived = {
      ? datagram_id: uint32
-     version: uint32
+     ; derivable from rate_signal: 0x6f7dc0fd when even, 0xef7dc0fd when odd
+     ? version: QuicVersion
      rate_signal: SCONERateSignal
      ; bits per second encoded by the rate_signal
      ; absent when rate_signal is 127
@@ -384,6 +392,13 @@ Table of Contents
               Express Concise Binary Object Representation (CBOR) and
               JSON Data Structures", RFC 8610, DOI 10.17487/RFC8610,
               June 2019, <https://www.rfc-editor.org/rfc/rfc8610>.
+
+   [QLOG-QUIC]
+              Marx, R., Niccolini, L., Seemann, M., and L. Pardue, "QUIC
+              event definitions for qlog", Work in Progress, Internet-
+              Draft, draft-ietf-quic-qlog-quic-events-13, 6 July 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
+              qlog-quic-events-13>.
 
    [QLOG-SCHEMA]
               Marx, R., Niccolini, L., Seemann, M., and L. Pardue,
