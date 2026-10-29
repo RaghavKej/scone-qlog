@@ -290,6 +290,8 @@ Reference:
 --- back
 
 # Change Log
+RFC-Editor NOTE:: Please remove this section when this is published as an RFC.
+
 * -00 was the first draft
 * -01
   * Add Matthias Hofstaetter as an author
