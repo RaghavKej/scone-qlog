@@ -209,7 +209,7 @@ This event could be emitted in the following common cases (non-exhaustive):
 
 This event SHOULD NOT be emitted when advice from a previous monitoring period expires, but the advice in the current monitoring period does not change the effective advice; that is, `old` and `new` SHOULD differ.
 
-Note: This event might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.
+Note: This event aligns with an API transition. It might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.
 
 ## scone:advice_expired {#expired}
 
