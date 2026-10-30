@@ -108,6 +108,8 @@ SCONEKnownRateSignal = 0..126
 ~~~
 {: #fig-rate-signal-type title="CDDL Description of SCONE Rate Signal types."}
 
+Note: The events defined in this document also contain the throughput advice (ceiling bitrate) so that QLOG tools need not implement the mapping. The rate signal is definitive, while the throughput advice is for convenience.
+
 # SCONE Event Schema Definition {#namespace}
 
 This document describes how the SCONE protocol can be expressed in qlog using the event schema. Per the requirements in {{Section 8 of QLOG-SCHEMA}}, this document registers the `scone` namespace. The event schema URI is `urn:ietf:params:qlog:events:scone`.
@@ -171,10 +173,8 @@ SCONEPacketReceived = {
   ? version: QuicVersion
   rate_signal: SCONERateSignal
   ; throughput advice in bits per second derived from rate_signal
-  ; as defined in Section 5.1 of SCONE; logged so that tools need not
-  ; implement the mapping; absent when rate_signal is 127
+  ; absent when rate_signal is 127
   ? throughput_advice: uint64
-  outcome: "accepted" / "discarded"
   ; accepted implies the packet was valid and contained a
   ; SCONEKnownRateSignal regardless of whether the advice was applied
   outcome: "accepted" / "discarded"
