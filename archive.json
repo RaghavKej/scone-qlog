@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-29T04:28:46.643238+00:00",
+  "timestamp": "2026-11-01T04:30:15.331507+00:00",
   "repo": "RaghavKej/scone-qlog",
   "labels": [
     {
@@ -54,7 +54,32 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 9,
+      "id": "I_kwDOVSd4eM8AAAABa4LDtQ",
+      "title": "Add a revisions section?",
+      "url": "https://github.com/RaghavKej/scone-qlog/issues/9",
+      "state": "CLOSED",
+      "author": "gorryfair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We ought to add a section  (to be removed by RFC-Ed) that says what changed in the latest revision:-).",
+      "createdAt": "2026-10-29T11:30:58Z",
+      "updatedAt": "2026-10-29T16:50:59Z",
+      "closedAt": "2026-10-29T16:50:59Z",
+      "comments": [
+        {
+          "author": "RaghavKej",
+          "authorAssociation": "OWNER",
+          "body": "Created a PR (#10) for this",
+          "createdAt": "2026-10-29T16:45:53Z",
+          "updatedAt": "2026-10-29T16:45:53Z"
+        }
+      ]
+    }
+  ],
   "pulls": [
     {
       "number": 1,
@@ -68,7 +93,7 @@
       "labels": [],
       "body": "Added a packet_observed event for network elements to record SCONE information (received and, where applicable, modified).\n\nUpdated the event summary table, IANA registration, abstract, and introduction accordingly.",
       "createdAt": "2026-10-23T15:55:30Z",
-      "updatedAt": "2026-10-23T15:57:01Z",
+      "updatedAt": "2026-10-29T08:06:36Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
       "baseRefOid": "2c23db69a512183db3990116f58c3f373b41f810",
@@ -79,7 +104,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We might wish to ask the WG whether they think this ought to be included?",
+          "createdAt": "2026-10-29T08:06:36Z",
+          "updatedAt": "2026-10-29T08:06:36Z"
+        }
+      ],
       "reviews": []
     },
     {
@@ -115,24 +148,26 @@
       "id": "PR_kwDOVSd4eM8AAAABKpN7iw",
       "title": "Advice events",
       "url": "https://github.com/RaghavKej/scone-qlog/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hfstco",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Tightens up the two advice events so tools can tell them apart at a\nmonitoring-period boundary.\n- advice_updated now follows the usual qlog `*_updated` shape: `old` /\n`new` (bits per second, `old` absent when no advice was in effect) plus\nan optional `trigger` (\"packet_received\" or \"period_expired\"). The\ncommon-cases list says which trigger applies to each.\n- advice_expired is now explicitly only for the case where the period\nends and nothing takes over; if other advice becomes effective the\nendpoint logs advice_updated instead, never both (SCONE 5.4). Also adds\n`previous_rate_signal` next to `previous_throughput_advice`.",
       "createdAt": "2026-10-25T22:17:56Z",
-      "updatedAt": "2026-10-28T16:48:01Z",
+      "updatedAt": "2026-10-29T15:16:09Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
       "baseRefOid": "f97aa54debcba6db9797f8c776965bddbae404c6",
       "headRepository": "hfstco/scone-qlog",
       "headRefName": "advice-events",
-      "headRefOid": "edf6b0da393feaaeaf451d5db9a7162f4f79b7bd",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "39c1272950a666d38241fe9e11d339f48f3a62bb",
+      "closedAt": "2026-10-29T15:16:09Z",
+      "mergedAt": "2026-10-29T15:16:09Z",
+      "mergedBy": "RaghavKej",
+      "mergeCommit": {
+        "oid": "3cfa1cf501208486c83982089279d2052e5a85ab"
+      },
       "comments": [
         {
           "author": "RaghavKej",
@@ -140,6 +175,13 @@
           "body": "Added to explain that advice events might or might not align with monitoring period boundaries dependent on the implementation. Requested review from Gorry to check it as well",
           "createdAt": "2026-10-28T16:45:52Z",
           "updatedAt": "2026-10-28T16:45:52Z"
+        },
+        {
+          "author": "RaghavKej",
+          "authorAssociation": "OWNER",
+          "body": "I'll merge this and others later today",
+          "createdAt": "2026-10-29T13:07:10Z",
+          "updatedAt": "2026-10-29T13:07:10Z"
         }
       ],
       "reviews": [
@@ -155,6 +197,26 @@
           "createdAt": "2026-10-28T16:48:00Z",
           "updatedAt": "2026-10-28T16:48:00Z",
           "comments": []
+        },
+        {
+          "id": "PRR_kwDOVSd4eM8AAAABU2r4Uw",
+          "commit": {
+            "abbreviatedOid": "edf6b0d"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good, one suggestion included.",
+          "createdAt": "2026-10-29T07:59:30Z",
+          "updatedAt": "2026-10-29T08:00:29Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\nNote: This event aligns with an API transition. It might or might not align with the boundary of the 67 second monitoring period. For example, implementations that do not use timers for SCONE monitoring periods could choose to emit this event when the application is next informed of the SCONE advice.\n```",
+              "createdAt": "2026-10-29T07:59:30Z",
+              "updatedAt": "2026-10-29T08:00:30Z"
+            }
+          ]
         }
       ]
     },
@@ -217,52 +279,113 @@
       "id": "PR_kwDOVSd4eM8AAAABLXphYg",
       "title": "Add author hofstaetter",
       "url": "https://github.com/RaghavKej/scone-qlog/pull/6",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hfstco",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add hofstetter as author and use postal for address.",
       "createdAt": "2026-10-28T21:27:21Z",
-      "updatedAt": "2026-10-28T21:27:23Z",
+      "updatedAt": "2026-10-29T13:06:18Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
       "baseRefOid": "e5d8b6dac937e2aae3535e90334b6a9ba1cb63dc",
       "headRepository": "hfstco/scone-qlog",
       "headRefName": "add-author-hofstaetter",
-      "headRefOid": "90d06d294f227c9e001821be5b244a1db977233e",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "headRefOid": "44556b621abc07093ef740dcceffa072381e6680",
+      "closedAt": "2026-10-29T13:06:18Z",
+      "mergedAt": "2026-10-29T13:06:18Z",
+      "mergedBy": "RaghavKej",
+      "mergeCommit": {
+        "oid": "d5ee7a693d25563756f79eb6fef527cac39620de"
+      },
+      "comments": [
+        {
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Isn't street: etc allowed tags in the mark-up rather than \"-\"?",
+          "createdAt": "2026-10-29T11:35:11Z",
+          "updatedAt": "2026-10-29T11:35:11Z"
+        },
+        {
+          "author": "hfstco",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Isn't street: etc allowed tags in the mark-up rather than \"-\"?\r\n\r\nThe problem before was, that we used the street tag twice. So there was a `street`-key collision.\r\n\r\nAnother solution is to use the `extaddr`-tag.\r\n\r\nFor example:\r\n```\r\nextaddr: School of Engineering\r\nstreet: Fraser Noble Building\r\ncity: Aberdeen\r\ncode: AB24 3UE\r\ncountry: UK\r\n```",
+          "createdAt": "2026-10-29T11:42:56Z",
+          "updatedAt": "2026-10-29T11:42:56Z"
+        },
+        {
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Let's add the tags you propose.",
+          "createdAt": "2026-10-29T11:44:59Z",
+          "updatedAt": "2026-10-29T11:44:59Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOVSd4eM8AAAABU5Ucyg",
+          "commit": {
+            "abbreviatedOid": "44556b6"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-10-29T11:55:18Z",
+          "updatedAt": "2026-10-29T11:55:18Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 7,
       "id": "PR_kwDOVSd4eM8AAAABLXucSQ",
       "title": "Should version be optional and typed as QuicVersion?",
       "url": "https://github.com/RaghavKej/scone-qlog/pull/7",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hfstco",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "version in `SCONEPacketSent` and `SCONEPacketReceived` is currently a required `uint32`. Its value is fully determined by `rate_signal`, though: the two SCONE versions (0x6f7dc0fd / 0xef7dc0fd) differ only in the MSB, which is the low bit of the Rate Signal (Section 5.1 of SCONE). QLOG-MAIN Section 8.5 asks event schemas to avoid duplicate data, and QLOG-QUIC logs versions as `QuicVersion` (hexstring, Section 8.1).\n\nThis PR proposes:\n\n- type `version` as `QuicVersion` instead of `uint32`,\n- make it optional, with a CDDL comment on how it derives from `rate_signal`,\n- add QLOG-QUIC as a normative reference.\n\nOpen question: do we want to keep `version` at all? Dropping it would be the strictest reading of the no-duplication guidance; keeping it optional preserves a direct record of what was on the wire.",
       "createdAt": "2026-10-28T21:33:47Z",
-      "updatedAt": "2026-10-28T21:33:49Z",
+      "updatedAt": "2026-10-29T15:25:35Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
       "baseRefOid": "e5d8b6dac937e2aae3535e90334b6a9ba1cb63dc",
       "headRepository": "hfstco/scone-qlog",
       "headRefName": "version-quicversion",
-      "headRefOid": "611eba14c292d253fc04a0668def9ad1b0917217",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0c03097036aa9e8ad3c7ec45f3e69417a3931aad",
+      "closedAt": "2026-10-29T15:25:35Z",
+      "mergedAt": "2026-10-29T15:25:34Z",
+      "mergedBy": "RaghavKej",
+      "mergeCommit": {
+        "oid": "8859f110a57ba2447a75a16308cdb011720d1fd7"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOVSd4eM8AAAABU2tDMg",
+          "commit": {
+            "abbreviatedOid": "611eba1"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-10-29T08:01:40Z",
+          "updatedAt": "2026-10-29T08:01:40Z",
+          "comments": [
+            {
+              "originalPosition": 22,
+              "body": "```suggestion\nNote: The `version` field is optional, because it is fully determined by `rate_signal`: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal ({{Section 5.1 of SCONE}}). It uses the `QuicVersion` type defined in {{Section 8.1 of QLOG-QUIC}}.\n```",
+              "createdAt": "2026-10-29T08:01:40Z",
+              "updatedAt": "2026-10-29T08:01:40Z"
+            }
+          ]
+        }
+      ]
     },
     {
       "number": 8,
@@ -276,19 +399,76 @@
       "labels": [],
       "body": "`throughput_advice` in `scone:packet_received` is fully determined by `rate_signal`. This PR makes the draft say so and points to where the mapping is defined.\n\n- \u201cSCONE Rate Signal Data Type\u201d: the formula now cites {{Section 5.1 of SCONE}} instead of a bare {{SCONE}}.\n- `SCONEPacketReceived`: the `throughput_advice` comment now sits before the field. It states that the value is derived from `rate_signal` per SCONE Section 5.1, that it is logged so tools need not implement the mapping, and that it is absent when `rate_signal` is 127.",
       "createdAt": "2026-10-28T21:40:30Z",
-      "updatedAt": "2026-10-28T21:40:32Z",
+      "updatedAt": "2026-10-30T11:40:09Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
-      "baseRefOid": "e5d8b6dac937e2aae3535e90334b6a9ba1cb63dc",
+      "baseRefOid": "8859f110a57ba2447a75a16308cdb011720d1fd7",
       "headRepository": "hfstco/scone-qlog",
       "headRefName": "throughput-advice-derived",
-      "headRefOid": "38e1ba83a0eb5b4e682ff2b7570fc6f9e09c51a6",
+      "headRefOid": "294252a7d8661ff58fca6fdcd253310f39a72959",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "RaghavKej",
+          "authorAssociation": "OWNER",
+          "body": "Happy to make this change, but instead should we add in a sentence or two in the SCONE Rate Signal so it applies to all of the events?",
+          "createdAt": "2026-10-29T16:16:07Z",
+          "updatedAt": "2026-10-29T16:16:07Z"
+        },
+        {
+          "author": "RaghavKej",
+          "authorAssociation": "OWNER",
+          "body": "I changed the suggestion from Matthias to a note in a previous section so that it is clear it applies to the full document rather than just that event.",
+          "createdAt": "2026-10-30T11:40:09Z",
+          "updatedAt": "2026-10-30T11:40:09Z"
+        }
+      ],
       "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOVSd4eM8AAAABLlDhIg",
+      "title": "Add change log and fix formatting issues",
+      "url": "https://github.com/RaghavKej/scone-qlog/pull/10",
+      "state": "MERGED",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-10-29T16:45:14Z",
+      "updatedAt": "2026-10-29T16:50:58Z",
+      "baseRepository": "RaghavKej/scone-qlog",
+      "baseRefName": "main",
+      "baseRefOid": "8859f110a57ba2447a75a16308cdb011720d1fd7",
+      "headRepository": "RaghavKej/scone-qlog",
+      "headRefName": "revision-history",
+      "headRefOid": "d8c42bf83384f48e3e830322f8646f635af196b7",
+      "closedAt": "2026-10-29T16:50:58Z",
+      "mergedAt": "2026-10-29T16:50:57Z",
+      "mergedBy": "RaghavKej",
+      "mergeCommit": {
+        "oid": "df733208c7b46962a210b89bea6b6a7558c25fb0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOVSd4eM8AAAABU9dqSg",
+          "commit": {
+            "abbreviatedOid": "d8c42bf"
+          },
+          "author": "gorryfair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-10-29T16:48:56Z",
+          "updatedAt": "2026-10-29T16:48:56Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
