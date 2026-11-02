@@ -100,13 +100,15 @@ This document follows the language used in {{SCONE}}:
 
 # SCONE Rate Signal Data Type
 
-A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second {{SCONE}}. The value 127 carries no throughput advice.
+A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second, as defined in {{Section 5.1 of SCONE}}. The value 127 carries no throughput advice.
 
 ~~~cddl
 SCONERateSignal = 0..127
 SCONEKnownRateSignal = 0..126
 ~~~
 {: #fig-rate-signal-type title="CDDL Description of SCONE Rate Signal types."}
+
+Note: The events defined in this document also contain the throughput advice (ceiling bitrate) so that QLOG tools need not implement the mapping. The rate signal is definitive, while the throughput advice is for convenience.
 
 # SCONE Event Schema Definition {#namespace}
 
@@ -172,7 +174,7 @@ SCONEPacketReceived = {
   ; 0x6f7dc0fd when even, 0xef7dc0fd when odd
   ? version: QuicVersion
   rate_signal: SCONERateSignal
-  ; bits per second encoded by the rate_signal
+  ; throughput advice in bits per second derived from rate_signal
   ; absent when rate_signal is 127
   ? throughput_advice: uint64
   ; accepted implies the packet was valid and contained a
