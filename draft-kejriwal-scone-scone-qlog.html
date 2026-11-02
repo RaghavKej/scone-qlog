@@ -1042,11 +1042,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">scone-qlog</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Kejriwal, et al.</td>
-<td class="center">Expires 2 May 2027</td>
+<td class="center">Expires 6 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1059,12 +1059,12 @@ svg {
 <dd class="internet-draft">draft-kejriwal-scone-scone-qlog-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-29" class="published">29 October 2026</time>
+<time datetime="2026-11-02" class="published">2 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-02">2 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1122,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1272,7 +1272,7 @@ svg {
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The event and data structure definitions in this document are expressed in the Concise Data Definition Language <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> and its extensions described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-1.2" class="relref">Section 1.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-2">The event and data structure definitions in this document are expressed in the Concise Data Definition Language <span>[<a href="#CDDL" class="cite xref">CDDL</a>]</span> and its extensions described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-1.2" class="relref">Section 1.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">This document follows the language used in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>:<a href="#section-2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2-4.1">
@@ -1289,7 +1289,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-scone-rate-signal-data-type">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-scone-rate-signal-data-type" class="section-name selfRef">SCONE Rate Signal Data Type</a>
       </h2>
-<p id="section-3-1">A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>. The value 127 carries no throughput advice.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of 100,000 * 10^(n/20) bits per second, as defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-5.1" class="relref">Section 5.1</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>. The value 127 carries no throughput advice.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <span id="name-cddl-description-of-scone-r"></span><div id="fig-rate-signal-type">
 <figure id="figure-1">
         <div class="lang-cddl sourcecode" id="section-3-2.1">
@@ -1302,6 +1302,7 @@ SCONEKnownRateSignal = 0..126
 <a href="#name-cddl-description-of-scone-r" class="selfRef">CDDL Description of SCONE Rate Signal types.</a>
         </figcaption></figure>
 </div>
+<p id="section-3-3">Note: The events defined in this document also contain the throughput advice (ceiling bitrate) so that QLOG tools need not implement the mapping. The rate signal is definitive, while the throughput advice is for convenience.<a href="#section-3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="namespace">
@@ -1309,7 +1310,7 @@ SCONEKnownRateSignal = 0..126
       <h2 id="name-scone-event-schema-definiti">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-scone-event-schema-definiti" class="section-name selfRef">SCONE Event Schema Definition</a>
       </h2>
-<p id="section-4-1">This document describes how the SCONE protocol can be expressed in qlog using the event schema. Per the requirements in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-8" class="relref">Section 8</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>, this document registers the <code>scone</code> namespace. The event schema URI is <code>urn:ietf:params:qlog:events:scone</code>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This document describes how the SCONE protocol can be expressed in qlog using the event schema. Per the requirements in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-8" class="relref">Section 8</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>, this document registers the <code>scone</code> namespace. The event schema URI is <code>urn:ietf:params:qlog:events:scone</code>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="draft-event-schema-identification">
 <section id="section-4.1">
         <h3 id="name-draft-event-schema-identifi">
@@ -1328,7 +1329,7 @@ SCONEKnownRateSignal = 0..126
       <h2 id="name-scone-events">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-scone-events" class="section-name selfRef">SCONE Events</a>
       </h2>
-<p id="section-5-1">SCONE events extend the <code>$ProtocolEventData</code> extension point defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-8.2" class="relref">Section 8.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>. Additionally, they allow for direct extensibility by their use of per-event extension points via the <code>$$</code> CDDL "group socket" syntax, as also described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-8.2" class="relref">Section 8.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">SCONE events extend the <code>$ProtocolEventData</code> extension point defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-8.2" class="relref">Section 8.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>. Additionally, they allow for direct extensibility by their use of per-event extension points via the <code>$$</code> CDDL "group socket" syntax, as also described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-8.2" class="relref">Section 8.2</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <span id="name-sconeeventdata-definition-a"></span><div id="scone-events-def">
 <figure id="figure-2">
         <div class="lang-cddl sourcecode" id="section-5-2.1">
@@ -1374,7 +1375,7 @@ SCONEPacketSent = {
 <a href="#name-cddl-description-of-the-sco" class="selfRef">CDDL Description of the SCONEPacketSent Data.</a>
           </figcaption></figure>
 </div>
-<p id="section-5.1-4">Note: The <code>version</code> field is optional, because it is fully determined by <code>rate_signal</code>: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-5.1" class="relref">Section 5.1</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>). It uses the <code>QuicVersion</code> type defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13#section-8.1" class="relref">Section 8.1</a> of [<a href="#QLOG-QUIC" class="cite xref">QLOG-QUIC</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Note: The <code>version</code> field is optional, because it is fully determined by <code>rate_signal</code>: the two SCONE versions differ only in their most significant bit, which is the least significant bit of the Rate Signal (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-5.1" class="relref">Section 5.1</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>). It uses the <code>QuicVersion</code> type defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-14#section-8.1" class="relref">Section 8.1</a> of [<a href="#QLOG-QUIC" class="cite xref">QLOG-QUIC</a>]</span>.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="received">
@@ -1394,7 +1395,7 @@ SCONEPacketReceived = {
   ; 0x6f7dc0fd when even, 0xef7dc0fd when odd
   ? version: QuicVersion
   rate_signal: SCONERateSignal
-  ; bits per second encoded by the rate_signal
+  ; throughput advice in bits per second derived from rate_signal
   ; absent when rate_signal is 127
   ? throughput_advice: uint64
   ; accepted implies the packet was valid and contained a
@@ -1435,7 +1436,7 @@ SCONEPacketReceived = {
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-sconeadvice_updated" class="section-name selfRef">scone:advice_updated</a>
         </h3>
 <p id="section-5.3-1">Importance: Base<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>. Following the convention of other qlog <code>*_updated</code> events, the event records both the previous and the new effective advice, and an optional <code>trigger</code> field indicates the cause of the change (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-8.2.1" class="relref">Section 8.2.1</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">The advice_updated event is emitted by a SCONE-receiving endpoint when the effective throughput advice changes as a result of processing a received SCONE packet or applying the monitoring-period rules defined in <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>. Following the convention of other qlog <code>*_updated</code> events, the event records both the previous and the new effective advice, and an optional <code>trigger</code> field indicates the cause of the change (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-8.2.1" class="relref">Section 8.2.1</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>).<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <span id="name-cddl-description-of-the-scone"></span><div id="fig-updated">
 <figure id="figure-5">
           <div class="lang-cddl sourcecode" id="section-5.3-3.1">
@@ -1515,8 +1516,8 @@ SCONEAdviceExpired = {
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">The security and privacy considerations discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-14" class="relref">Section 14</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> apply to this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">The events defined in this document record the rate signals and throughput advice that a network applies to the traffic of the logging endpoint. A qlog file containing these events therefore reveals the policy that an access network applied to that endpoint, and can help identify the network or infer the endpoint's subscription, as discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-10" class="relref">Section 10</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>. When qlog files are shared beyond the logging endpoint, the data minimization and anonymization guidance in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-14.3" class="relref">Section 14.3</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> is <span class="bcp14">RECOMMENDED</span> for these fields.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">The security and privacy considerations discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-14" class="relref">Section 14</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> apply to this document.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">The events defined in this document record the rate signals and throughput advice that a network applies to the traffic of the logging endpoint. A qlog file containing these events therefore reveals the policy that an access network applied to that endpoint, and can help identify the network or infer the endpoint's subscription, as discussed in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-scone-protocol-10#section-10" class="relref">Section 10</a> of [<a href="#SCONE" class="cite xref">SCONE</a>]</span>. When qlog files are shared beyond the logging endpoint, the data minimization and anonymization guidance in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-14.3" class="relref">Section 14.3</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span> is <span class="bcp14">RECOMMENDED</span> for these fields.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana">
@@ -1524,7 +1525,7 @@ SCONEAdviceExpired = {
       <h2 id="name-iana-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-7-1">This document registers a new entry in the "qlog event schema URIs" registry (created in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14#section-15" class="relref">Section 15</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>).<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This document registers a new entry in the "qlog event schema URIs" registry (created in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15#section-15" class="relref">Section 15</a> of [<a href="#QLOG-SCHEMA" class="cite xref">QLOG-SCHEMA</a>]</span>).<a href="#section-7-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-7-2">
         <dt id="section-7-2.1">Event schema URI:</dt>
         <dd style="margin-left: 1.5em" id="section-7-2.2">
@@ -1566,11 +1567,11 @@ SCONEAdviceExpired = {
 <dd class="break"></dd>
 <dt id="QLOG-QUIC">[QLOG-QUIC]</dt>
       <dd>
-<span class="refAuthor">Marx, R.</span>, <span class="refAuthor">Niccolini, L.</span>, <span class="refAuthor">Seemann, M.</span>, and <span class="refAuthor">L. Pardue</span>, <span class="refTitle">"QUIC event definitions for qlog"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-qlog-quic-events-13</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13">https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-13</a>&gt;</span>. </dd>
+<span class="refAuthor">Marx, R.</span>, <span class="refAuthor">Niccolini, L.</span>, <span class="refAuthor">Seemann, M.</span>, and <span class="refAuthor">L. Pardue</span>, <span class="refTitle">"QUIC event definitions for qlog"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-qlog-quic-events-14</span>, <time datetime="2026-11-02" class="refDate">2 November 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-14">https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-quic-events-14</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QLOG-SCHEMA">[QLOG-SCHEMA]</dt>
       <dd>
-<span class="refAuthor">Marx, R.</span>, <span class="refAuthor">Niccolini, L.</span>, <span class="refAuthor">Seemann, M.</span>, and <span class="refAuthor">L. Pardue</span>, <span class="refTitle">"qlog: Structured Logging for Network Protocols"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-qlog-main-schema-14</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14">https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Marx, R.</span>, <span class="refAuthor">Niccolini, L.</span>, <span class="refAuthor">Seemann, M.</span>, and <span class="refAuthor">L. Pardue</span>, <span class="refTitle">"qlog: Structured Logging for Network Protocols"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-qlog-main-schema-15</span>, <time datetime="2026-11-02" class="refDate">2 November 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15">https://datatracker.ietf.org/doc/html/draft-ietf-quic-qlog-main-schema-15</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>

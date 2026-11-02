@@ -5,9 +5,9 @@
 Standard Communication with Network Elements                 R. Kejriwal
 Internet-Draft                                              G. Fairhurst
 Intended status: Standards Track                  University of Aberdeen
-Expires: 2 May 2027                                        M. Hofstätter
+Expires: 6 May 2027                                        M. Hofstätter
                                                    FAU Erlangen-Nürnberg
-                                                         29 October 2026
+                                                         2 November 2026
 
 
                   QUIC Logging for the SCONE Protocol
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 May 2027.
+   This Internet-Draft will expire on 6 May 2027.
 
 Copyright Notice
 
@@ -142,13 +142,18 @@ Table of Contents
 3.  SCONE Rate Signal Data Type
 
    A Rate Signal n in the range 0 to 126 maps to a ceiling bitrate of
-   100,000 * 10^(n/20) bits per second [SCONE].  The value 127 carries
-   no throughput advice.
+   100,000 * 10^(n/20) bits per second, as defined in Section 5.1 of
+   [SCONE].  The value 127 carries no throughput advice.
 
    SCONERateSignal = 0..127
    SCONEKnownRateSignal = 0..126
 
            Figure 1: CDDL Description of SCONE Rate Signal types.
+
+   Note: The events defined in this document also contain the throughput
+   advice (ceiling bitrate) so that QLOG tools need not implement the
+   mapping.  The rate signal is definitive, while the throughput advice
+   is for convenience.
 
 4.  SCONE Event Schema Definition
 
@@ -238,7 +243,7 @@ Table of Contents
      ; 0x6f7dc0fd when even, 0xef7dc0fd when odd
      ? version: QuicVersion
      rate_signal: SCONERateSignal
-     ; bits per second encoded by the rate_signal
+     ; throughput advice in bits per second derived from rate_signal
      ; absent when rate_signal is 127
      ? throughput_advice: uint64
      ; accepted implies the packet was valid and contained a
@@ -399,17 +404,17 @@ Table of Contents
    [QLOG-QUIC]
               Marx, R., Niccolini, L., Seemann, M., and L. Pardue, "QUIC
               event definitions for qlog", Work in Progress, Internet-
-              Draft, draft-ietf-quic-qlog-quic-events-13, 6 July 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
-              qlog-quic-events-13>.
+              Draft, draft-ietf-quic-qlog-quic-events-14, 2 November
+              2026, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              quic-qlog-quic-events-14>.
 
    [QLOG-SCHEMA]
               Marx, R., Niccolini, L., Seemann, M., and L. Pardue,
               "qlog: Structured Logging for Network Protocols", Work in
               Progress, Internet-Draft, draft-ietf-quic-qlog-main-
-              schema-14, 6 July 2026,
+              schema-15, 2 November 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-quic-
-              qlog-main-schema-14>.
+              qlog-main-schema-15>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
