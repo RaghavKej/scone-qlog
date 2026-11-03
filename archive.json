@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-01T04:30:15.331507+00:00",
+  "timestamp": "2026-11-03T05:26:01.708227+00:00",
   "repo": "RaghavKej/scone-qlog",
   "labels": [
     {
@@ -392,24 +392,26 @@
       "id": "PR_kwDOVSd4eM8AAAABLXzjSA",
       "title": "throughput_advice as derived from rate_signal",
       "url": "https://github.com/RaghavKej/scone-qlog/pull/8",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "hfstco",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "`throughput_advice` in `scone:packet_received` is fully determined by `rate_signal`. This PR makes the draft say so and points to where the mapping is defined.\n\n- \u201cSCONE Rate Signal Data Type\u201d: the formula now cites {{Section 5.1 of SCONE}} instead of a bare {{SCONE}}.\n- `SCONEPacketReceived`: the `throughput_advice` comment now sits before the field. It states that the value is derived from `rate_signal` per SCONE Section 5.1, that it is logged so tools need not implement the mapping, and that it is absent when `rate_signal` is 127.",
       "createdAt": "2026-10-28T21:40:30Z",
-      "updatedAt": "2026-10-30T11:40:09Z",
+      "updatedAt": "2026-11-02T17:34:11Z",
       "baseRepository": "RaghavKej/scone-qlog",
       "baseRefName": "main",
       "baseRefOid": "8859f110a57ba2447a75a16308cdb011720d1fd7",
       "headRepository": "hfstco/scone-qlog",
       "headRefName": "throughput-advice-derived",
       "headRefOid": "294252a7d8661ff58fca6fdcd253310f39a72959",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-11-02T17:34:11Z",
+      "mergedAt": "2026-11-02T17:34:11Z",
+      "mergedBy": "RaghavKej",
+      "mergeCommit": {
+        "oid": "45e997daf35aae730e71e59a22a05167c262c4f1"
+      },
       "comments": [
         {
           "author": "RaghavKej",
