@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-03T05:26:01.708227+00:00",
+  "timestamp": "2026-11-08T04:33:49.472173+00:00",
   "repo": "RaghavKej/scone-qlog",
   "labels": [
     {
@@ -78,6 +78,70 @@
           "updatedAt": "2026-10-29T16:45:53Z"
         }
       ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOVSd4eM8AAAABdG58Ug",
+      "title": "Editorial change based on comments from Qin Wu",
+      "url": "https://github.com/RaghavKej/scone-qlog/issues/11",
+      "state": "OPEN",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add short explainer for the relationship between this, QLOG-SCHEMA and QLOG-QUIC\n\nSee https://mailarchive.ietf.org/arch/msg/scone/sQbze1mlzE5dclV5rLPmT6a8PVk/#",
+      "createdAt": "2026-11-06T18:28:03Z",
+      "updatedAt": "2026-11-06T18:40:55Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOVSd4eM8AAAABdG8wBg",
+      "title": "Connection Migration and per flow/tuple logging",
+      "url": "https://github.com/RaghavKej/scone-qlog/issues/12",
+      "state": "OPEN",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Explain how the events would work in terms of connection migration, and that events are per flow/4-tuple (from Qin Wu's feedback)\n\nSee https://mailarchive.ietf.org/arch/msg/scone/sQbze1mlzE5dclV5rLPmT6a8PVk/#",
+      "createdAt": "2026-11-06T18:31:08Z",
+      "updatedAt": "2026-11-06T18:40:44Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOVSd4eM8AAAABdG9tSA",
+      "title": "SCONE-ECHO ?",
+      "url": "https://github.com/RaghavKej/scone-qlog/issues/13",
+      "state": "OPEN",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Decide if we want to add SCONE-ECHO events and how they should be structured\n\nSee https://mailarchive.ietf.org/arch/msg/scone/sQbze1mlzE5dclV5rLPmT6a8PVk/#",
+      "createdAt": "2026-11-06T18:32:12Z",
+      "updatedAt": "2026-11-06T18:40:32Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOVSd4eM8AAAABdG_iwA",
+      "title": "Network Element events?",
+      "url": "https://github.com/RaghavKej/scone-qlog/issues/14",
+      "state": "OPEN",
+      "author": "RaghavKej",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Should we have events for network elements?\n\nSee https://mailarchive.ietf.org/arch/msg/scone/sQbze1mlzE5dclV5rLPmT6a8PVk/#",
+      "createdAt": "2026-11-06T18:34:14Z",
+      "updatedAt": "2026-11-06T18:40:20Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
