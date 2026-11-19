@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-11-08T04:33:49.472173+00:00",
+  "timestamp": "2026-11-19T05:58:24.629800+00:00",
   "repo": "RaghavKej/scone-qlog",
   "labels": [
     {
@@ -107,9 +107,17 @@
       "labels": [],
       "body": "Explain how the events would work in terms of connection migration, and that events are per flow/4-tuple (from Qin Wu's feedback)\n\nSee https://mailarchive.ietf.org/arch/msg/scone/sQbze1mlzE5dclV5rLPmT6a8PVk/#",
       "createdAt": "2026-11-06T18:31:08Z",
-      "updatedAt": "2026-11-06T18:40:44Z",
+      "updatedAt": "2026-11-18T18:06:25Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "RaghavKej",
+          "authorAssociation": "OWNER",
+          "body": "The proposal of using the tuple field might need changing/rethinking as the qlog drafts evolve. Lucas mentioned the qlog draft might change tuple to being only in the packet events at QUIC WG IETF-127 (https://github.com/quicwg/qlog/issues/501) -- still need to go through the proposed change fully but I think we could just add tuple as an optional field in the scone events.",
+          "createdAt": "2026-11-18T17:56:01Z",
+          "updatedAt": "2026-11-18T18:06:25Z"
+        }
+      ]
     },
     {
       "number": 13,
